@@ -1,0 +1,1 @@
+// Các hàm validate form như kiểm tra email, password, các quy tắc nhập liệu.

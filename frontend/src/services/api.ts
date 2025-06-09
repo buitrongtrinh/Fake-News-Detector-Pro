@@ -1,0 +1,1 @@
+// Module để gọi các API backend thật (khi có), ví dụ lấy dữ liệu phân tích fake news.
