@@ -19,6 +19,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-left">
+        <img src="/logoSchool.png" alt="Logo School" className="navbar-logo"/>
         <Link to="/dashboard">Fake News Detector</Link>
       </div>
 

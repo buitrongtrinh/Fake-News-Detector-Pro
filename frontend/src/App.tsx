@@ -7,8 +7,8 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import AboutPage from './pages/AboutPage';
 
-import ProtectedRoute from './components/ProtectedRoute';
-import PublicRoute from './components/PublicRoute';
+import ProtectedRoute from './components/routes/ProtectedRoute';
+import PublicRoute from './components/routes/PublicRoute';
 import AnalyticsPage from './pages/AnalyticsPage';
 import HistoryPage from './pages/HistoryPage';
 
