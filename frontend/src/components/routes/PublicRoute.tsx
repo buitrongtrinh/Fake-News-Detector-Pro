@@ -12,7 +12,7 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   console.log('PublicRoute auth:', auth.user);
   if (auth.user) {
     // Nếu đã đăng nhập thì redirect về dashboard
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/about" replace />;
   }
 
   return <>{children}</>;

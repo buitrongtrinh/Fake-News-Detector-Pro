@@ -7,7 +7,7 @@ import ProfilePopup from './ProfilePopup';
 const Navbar = () => {
   const auth = useContext(AuthContext);
   const [showProfile, setShowProfile] = useState(false);
-  
+
 
   const handleToggleProfile = () => setShowProfile((prev) => !prev);
   const handleCloseProfile = () => setShowProfile(false);
@@ -19,29 +19,32 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <img src="/logoSchool.png" alt="Logo School" className="navbar-logo"/>
+        <img src="/logoSchool.png" alt="Logo School" className="navbar-logo" />
         <Link to="/dashboard">Fake News Detector</Link>
       </div>
 
       <div className="navbar-center">
-        <Link to="/about">Giới thiệu</Link>
-        <Link to="/analysis">Phân tích</Link>
-        <Link to="/history">Lịch sử</Link>
+        {auth?.role === 'admin' && (
+          <Link to="/dashboard">Dashboard</Link>
+        )}
+        <Link to="/about">About</Link>
+        <Link to="/analysis">Analytics</Link>
+        <Link to="/history">History</Link>
       </div>
 
       <div className="navbar-right">
-        {!auth?.user?(
+        {!auth?.user ? (
           // 👉 Gộp đăng ký & đăng nhập vào 1 div
           <div className="auth-links">
-            <Link to="/login">Đăng nhập</Link>
-            <Link to="/register">Đăng ký</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
           </div>
         ) : (
           <div className="user-info">
-              {/* Nút profile thay cho email */}
+            {/* Nút profile thay cho email */}
             <button onClick={handleToggleProfile} className="profile-btn">
               Profile
-            </button>            
+            </button>
             {/* Popup Profile */}
             {showProfile && (
               <ProfilePopup
@@ -49,7 +52,7 @@ const Navbar = () => {
                 onClose={handleCloseProfile}
               />
             )}
-            <button onClick={handleLogout}>Đăng xuất</button>
+            <button onClick={handleLogout}>Log Out</button>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import RegisterForm from '../components/auth/RegisterForm';
-import { register } from '../services/firebaseAuth'; // hàm đăng ký từ firebase
+import { register } from '../services/firebase/firebaseAuth'; // hàm đăng ký từ firebase
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
@@ -10,10 +10,10 @@ const RegisterPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const handleRegister = async (email: string, password: string, username: string) => {
     try {
-      const loggedInEmail = await register(email, password, username); // Giả sử hàm register trả về email đã đăng ký
-      
+      const user = await register(email, password, username); //
+
       if (auth) {
-        auth.login(loggedInEmail); // truyền vào context
+        auth.login(user); // truyền vào context
         
         navigate('/dashboard');   // chuyển sang dashboard
       }
