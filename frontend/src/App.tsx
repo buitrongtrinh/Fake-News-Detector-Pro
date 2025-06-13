@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import AboutPage from './pages/AboutPage';
+import UnauthorizedForm from './components/auth/UnauthorizedForm';
 
 import ProtectedRoute from './components/routes/ProtectedRoute';
 import PublicRoute from './components/routes/PublicRoute';
@@ -13,6 +14,7 @@ import AnalyticsPage from './pages/AnalyticsPage';
 import HistoryPage from './pages/HistoryPage';
 
 import './App.css';
+import UnauthorizedPage from './pages/UnauthorizedPage';
 
 const App: React.FC = () => {
   return (
@@ -84,6 +86,15 @@ const App: React.FC = () => {
                 element={
                   <ProtectedRoute requiredRole={['user', 'admin']}>
                     <HistoryPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/unauthorized"
+                element={
+                  <ProtectedRoute requiredRole={['user']}>
+                    <UnauthorizedPage/>
                   </ProtectedRoute>
                 }
               />

@@ -13,7 +13,7 @@ const RegisterPage: React.FC = () => {
       const user = await register(email, password, username); //
 
       if (auth) {
-        auth.login(user); // truyền vào context
+        auth.login(user, 'user'); // truyền vào context
         
         navigate('/dashboard');   // chuyển sang dashboard
       }
