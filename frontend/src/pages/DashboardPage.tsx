@@ -5,7 +5,7 @@ const DashboardPage: React.FC = () => {
     const auth = useAuth();
     return (
         <div>
-            <h1>Welcome {auth?.user?.displayName}</h1>
+            <h1>Welcome Admin {auth?.user?.displayName}</h1>
             {auth.role === 'admin' ? (
                 <p>Bạn là admin, có quyền quản trị</p>
             ) : (
