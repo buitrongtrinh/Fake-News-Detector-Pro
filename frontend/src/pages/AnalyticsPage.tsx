@@ -1,30 +1,20 @@
 import AnalyticsForm from "../components/Analytics/AnalyticsForm";
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
 
 const AnalyticsPage = () => {
   const [result, setResult] = useState<any>(null); // lưu kết quả phân tích (object)
-  const auth = useAuth();
 
   const handleAnalytics = async (message: string) => {
-    if (!auth.user) {
-      setResult({ error: "Chưa đăng nhập" });
-      return;
-    }
-    const idtoken = await auth.user?.getIdToken();
-    const res = await fetch("http://localhost:5000/analyze", {
+    const res = await fetch("http://localhost:3001/api/analyze", {
       method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${idtoken}`, // Gửi token trong header
-      },
-      body: JSON.stringify({ prompt: message }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
     });
 
     const data = await res.json();
 
-    if (res.ok) {
-      setResult(data); // lấy đúng trường analysis
+    if (data.success) {
+      setResult(data.analysis); // lấy đúng trường analysis
     } else {
       setResult({ error: data.error || "Lỗi khi phân tích" });
     }
