@@ -1,0 +1,119 @@
+.analytics-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fdfdfd;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.analytics-loading {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.analytics-result-box {
+  margin-top: 32px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #fff;
+  border-left: 6px solid #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.analytics-result-true {
+  border-left-color: #e74c3c; /* đỏ */
+}
+
+.analytics-result-false {
+  border-left-color: #2ecc71; /* xanh lá */
+}
+
+.analytics-result-null {
+  border-left-color: #7f8c8d; /* xanh lá */
+}
+
+.analytics-section {
+  margin-top: 16px;
+  padding-left: 10px;
+}
+
+.analytics-label {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.isfakenews-false {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.isfakenews-true {
+  color: #e74c3c;
+  font-weight: bold;
+}
+.isfakenews-null {
+  color: #7f8c8d; /* Màu xám trung tính */
+  font-weight: bold;
+}
+
+.evidence-block {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+  background-color: #f9f9f9;
+}
+
+.evidence-block p {
+  margin: 6px 0;
+}
+.evidence-block a {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.evidence-supports {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.evidence-refutes {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.analytics-error {
+  margin-top: 24px;
+  padding: 16px;
+  border-left: 6px solid #e67e22;
+  background-color: #fffaf2;
+  color: #e67e22;
+  font-weight: 500;
+  border-radius: 10px;
+}
+.custom-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 8px;
+}
+
+.custom-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.custom-bullet {
+  color: #007bff;
+  margin-right: 8px;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}

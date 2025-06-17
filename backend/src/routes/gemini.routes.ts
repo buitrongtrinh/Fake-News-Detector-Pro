@@ -5,6 +5,6 @@ import { verifyFirebaseToken } from '../middlewares/auth.middleware'; // Middlew
 const router = Router();
 
 // Route POST với middleware verifyFirebaseToken (nếu cần)
-router.post('/analyze', verifyFirebaseToken, analyzePrompt as any);
+router.post('/analyze',  analyzePrompt as any);
 
 export default router;

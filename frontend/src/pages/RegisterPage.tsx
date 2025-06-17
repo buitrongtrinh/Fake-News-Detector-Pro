@@ -9,23 +9,18 @@ const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const handleRegister = async (email: string, password: string, username: string) => {
-    try {
-      const user = await register(email, password, username); //
+    const user = await register(email, password, username); //
 
-      if (auth) {
-        auth.login(user, 'user'); // truyền vào context
-        
-        navigate('/dashboard');   // chuyển sang dashboard
-      }
-    }catch (error) {
-      alert('Email đã được sử dụng. Vui lòng sử dụng email khác.'); // Thông báo lỗi nếu đăng ký không thành công
+    if (auth) {
+      auth.login(user, 'user'); // truyền vào context
+
+      navigate('/dashboard');   // chuyển sang dashboard
     }
+
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <RegisterForm onRegister={handleRegister} />
-    </div>
+    <RegisterForm onRegister={handleRegister} />
   );
 };
 

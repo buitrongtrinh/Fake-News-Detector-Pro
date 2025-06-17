@@ -1,64 +1,81 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
-
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+import { getToday } from "../utils/getToday";
 
-export interface AnalysisResult {
-  isFakeNews: boolean;
-  confidence: number;
-  reason: string;
-  indicators: string[];
-  recommendation: string;
+import { GoogleGenAI } from "@google/genai";
+import { FactCheckResult } from "../types/interfaces";
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+
+export async function callGeminiAPI(message: string): Promise<FactCheckResult> {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash-preview-05-20",
+      contents: [
+        `
+Xác minh thông tin: "${message}"
+
+JSON output:
+{
+  "input": "Nội dung kiểm tra",
+  "isfakenews": "true/false/null",
+  "reasoning": "Lý do ngắn gọn, Không chèn số tham chiếu như [1], [2, 3] vào.",
+  "sources": [
+    {
+      "title": "Tiêu đề bài báo",
+      "url": "https://...",
+      "domain": "không được trả về vertexaisearch.cloud.google.com",
+      "date_published": "ngày đăng bài",
+      "status": "supports/refutes"
+    }
+  ],
+  "advice": "Lời khuyên cho người dùng về việc chia sẻ/tin tưởng thông tin này"
 }
 
-/**
- * Gọi Gemini API để phân tích nội dung tin tức
- * @param message Nội dung cần phân tích
- * @returns Kết quả phân tích dưới dạng JSON
- */
-export const callGeminiAPI = async (message: string): Promise<AnalysisResult> => {
-  const prompt = `
-    Bạn là một chuyên gia phân tích tin tức. Hãy phân tích đoạn văn bản sau và xác định:
-    1. Đây có phải là tin giả (fake news) không?
-    2. Mức độ tin cậy (từ 0-100%)
-    3. Lý do tại sao bạn đưa ra kết luận này
-    4. Các dấu hiệu nhận biết
+Quy tắc:
+- "true" = tin giả/sai lệch
+- "false" = tin thật/chính xác  
+- "null" = chưa đủ thông tin
+- Ưu tiên kiến thức có sẵn
+- Khi search: ưu tiên báo tiếng Việt lớn, uy tín, gần với ngày hôm nay nhất(${getToday()})
+- Nếu search → bao gồm nguồn trong "sources"
+- Chỉ search khi thực sự cần (tin mới/phức tạp)
+- Advice: đưa ra khuyên nghị cho người muốn xác minh
+        `
+      ],
+      config: {
+        tools: [
+          { urlContext: {} },
+          { googleSearch: {} },
+        ],
+      },
+    });
 
-    Văn bản cần phân tích: "${message}"
-
-    Trả lời theo định dạng JSON:
-    {
-      "isFakeNews": true/false,
-      "confidence": số từ 0-100,
-      "reason": "lý do chi tiết",
-      "indicators": ["dấu hiệu 1", "dấu hiệu 2"],
-      "recommendation": "khuyến nghị cho người đọc"
+    if (!response.text) {
+      throw new Error("Không có nội dung từ Gemini API.");
     }
-  `;
-  console.log("Gọi đến Gemini...");
-  const result = await model.generateContent(prompt);
-  console.log("Đã có result."); // nếu không in ra => bị treo
-  const response = result.response;
-  const text = response.text();
 
-  try {
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]) as AnalysisResult;
-    } else {
-      throw new Error("Không thể parse JSON từ Gemini");
-    }
+    // Xử lý và parse JSON trả về
+    const rawText = response.text.trim();
+    const cleanedText = rawText
+      .replace(/```json\n?/g, '')
+      .replace(/```$/g, '')
+      .trim();
+    console.log(cleanedText);
+    const result: FactCheckResult = JSON.parse(cleanedText);
+    return result;
+
   } catch (error) {
-    // Nếu không parse được, trả về kết quả mặc định
+    console.error("❌ Lỗi khi gọi Gemini API hoặc parse JSON:", error);
+
+    // Trả về một object fallback
     return {
-      isFakeNews: false,
-      confidence: 50,
-      reason: text.substring(0, 200) + "...",
-      indicators: ["Cần phân tích thêm"],
-      recommendation: "Hãy kiểm tra từ nhiều nguồn khác nhau"
-    };
+      input: "",
+      isfakenews: "",
+      reasoning: ["Không thể xác minh thông tin", "Lỗi khi gọi API hoặc phân tích dữ liệu"],
+      sources: [],
+      advice: "",
+    }
   }
-};
+}

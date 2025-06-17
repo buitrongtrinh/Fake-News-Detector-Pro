@@ -8,25 +8,22 @@ const Navbar = () => {
   const auth = useContext(AuthContext);
   const [showProfile, setShowProfile] = useState(false);
 
-
   const handleToggleProfile = () => setShowProfile((prev) => !prev);
   const handleCloseProfile = () => setShowProfile(false);
   const handleLogout = () => {
-    auth?.logout(); // Gọi hàm logout từ AuthContext
-    setShowProfile(false); // Tắt popup profile khi logout
+    auth?.logout();
+    setShowProfile(false);
   };
 
   return (
     <div className="navbar">
       <div className="navbar-left">
         <img src="/logoSchool.png" alt="Logo School" className="navbar-logo" />
-        <Link to="/dashboard">Fake News Detector</Link>
+        <Link to="/about">Fake News Detector</Link>
       </div>
 
       <div className="navbar-center">
-        {auth?.role === 'admin' && (
-          <Link to="/dashboard">Dashboard</Link>
-        )}
+        {auth?.role === 'admin' && <Link to="/dashboard">Dashboard</Link>}
         <Link to="/about">About</Link>
         <Link to="/analysis">Analytics</Link>
         <Link to="/history">History</Link>
@@ -34,23 +31,17 @@ const Navbar = () => {
 
       <div className="navbar-right">
         {!auth?.user ? (
-          // 👉 Gộp đăng ký & đăng nhập vào 1 div
           <div className="auth-links">
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
           </div>
         ) : (
-          <div className="user-info">
-            {/* Nút profile thay cho email */}
+          <div className="user-info" style={{ position: 'relative' }}>
             <button onClick={handleToggleProfile} className="profile-btn">
               Profile
             </button>
-            {/* Popup Profile */}
             {showProfile && (
-              <ProfilePopup
-                user={auth.user || ''}
-                onClose={handleCloseProfile}
-              />
+              <ProfilePopup user={auth.user} onClose={handleCloseProfile} />
             )}
             <button onClick={handleLogout}>Log Out</button>
           </div>

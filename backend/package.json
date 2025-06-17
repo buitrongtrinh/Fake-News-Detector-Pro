@@ -5,20 +5,22 @@
   "main": "src/app.ts",
   "type": "commonjs",
   "scripts": {
-    "start": "ts-node src/app.ts",                            
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts" 
+    "start": "ts-node src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^1.5.1",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.9.0",
     "cheerio": "^1.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "firebase-admin": "^13.4.0"
+    "firebase-admin": "^13.4.0",
+    "serpapi": "^2.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

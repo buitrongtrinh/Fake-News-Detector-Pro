@@ -11,7 +11,7 @@ const UnauthorizedPage = () => {
   const handleGoBack = () => {
     // Redirect dựa theo user status
     if (auth?.user) {
-      navigate('/dashboard'); // User về trang dashboard
+      navigate('/about'); // User về trang dashboard
     } else {
       navigate('/login'); // Nếu chưa đăng nhập thì về login
     }

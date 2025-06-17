@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/components/RegisterForm.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface RegisterFormProps {
   onRegister: (email: string, password: string, username: string) => Promise<void>;
@@ -12,8 +13,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  
-  // Validation states
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [validationState, setValidationState] = useState({
     email: false,
     username: false,
@@ -21,10 +23,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
     confirmPassword: false
   });
 
-  // Real-time validation
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
     setValidationState({
       email: email.length > 0 && emailRegex.test(email),
       username: username.length >= 3,
@@ -37,16 +37,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
     e.preventDefault();
     setError(null);
 
-    if (!email) {
-      setError('Email không được để trống');
-      return;
-    }
-    if (!username) {
-      setError('Tên người dùng không được để trống');
-      return;
-    }
-    if (!password) {
-      setError('Mật khẩu không được để trống');
+    if (!email || !username || !password) {
+      setError('Vui lòng điền đầy đủ thông tin');
       return;
     }
     if (password !== confirmPassword) {
@@ -54,16 +46,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
       return;
     }
 
-    // Additional validation
     const emailRegex = /^[^\s@]+@gmail\.com$/;
     if (!emailRegex.test(email)) {
       setError('Email không hợp lệ');
       return;
     }
+
     if (username.length < 3) {
       setError('Tên người dùng phải có ít nhất 3 ký tự');
       return;
     }
+
     if (password.length < 6) {
       setError('Mật khẩu phải có ít nhất 6 ký tự');
       return;
@@ -80,50 +73,85 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   };
 
   return (
-    <form className="register-form" onSubmit={handleSubmit}>
-      <h2>Đăng ký</h2>
-      {error && <p className="error">{error}</p>}
-      
-      <label>Email:</label>
-      <input
-        type="text"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Nhập email"
-        className={validationState.email ? 'valid' : ''}
-      />
-      
-      <label>Tên người dùng:</label>
-      <input
-        type="text"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-        placeholder="Nhập Username (tối thiểu 3 ký tự)"
-        className={validationState.username ? 'valid' : ''}
-      />
-      
-      <label>Mật khẩu:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)"
-        className={validationState.password ? 'valid' : ''}
-      />
-      
-      <label>Xác nhận mật khẩu:</label>
-      <input
-        type="password"
-        value={confirmPassword}
-        onChange={e => setConfirmPassword(e.target.value)}
-        placeholder="Nhập lại mật khẩu"
-        className={validationState.confirmPassword ? 'valid' : (confirmPassword.length > 0 ? 'invalid' : '')}
-      />
-      
-      <button type="submit" disabled={loading}>
-        {loading ? 'Đang đăng ký...' : 'Đăng ký'}
-      </button>
-    </form>
+    <div className="register-form-container">
+      <div className="register-form">
+        <h2>Đăng ký</h2>
+        {error && <div className="error-message">{error}</div>}
+
+        <div className="form-group">
+          <label className="form-label">Email:</label>
+          <input
+            type="text"
+            className={`form-input ${validationState.email ? 'valid' : ''}`}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Nhập email"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Tên người dùng:</label>
+          <input
+            type="text"
+            className={`form-input ${validationState.username ? 'valid' : ''}`}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Nhập Username (tối thiểu 3 ký tự)"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Mật khẩu:</label>
+          <div className="password-input-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              className={`form-input password-input ${validationState.password ? 'valid' : ''}`}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)"
+            />
+            <button
+              type="button"
+              className="password-toggle-button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Xác nhận mật khẩu:</label>
+          <div className="password-input-container">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              className={`form-input password-input ${validationState.confirmPassword ? 'valid' : confirmPassword.length > 0 ? 'invalid' : ''}`}
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              placeholder="Nhập lại mật khẩu"
+            />
+            <button
+              type="button"
+              className="password-toggle-button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              aria-label={showConfirmPassword ? "Ẩn mật khẩu xác nhận" : "Hiện mật khẩu xác nhận"}
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+        </div>
+
+        <button 
+          type="button" 
+          className="form-button" 
+          onClick={handleSubmit} 
+          disabled={loading}
+        >
+          {loading ? 'Đang đăng ký...' : 'Đăng ký'}
+        </button>
+      </div>
+    </div>
   );
 };
 
