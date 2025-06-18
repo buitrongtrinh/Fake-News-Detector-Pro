@@ -138,7 +138,7 @@ const AnalyticsPage = () => {
 
           {result.sources?.length > 0 && (
             <div className="analytics-section">
-              <p className="analytics-label">Bằng chứng từ các nguồn:</p>
+              <p className="analytics-label">Các nguồn tham khảo:</p>
               {result.sources.map((source, index) => (
                 <div key={index} className="evidence-block">
                   <p>

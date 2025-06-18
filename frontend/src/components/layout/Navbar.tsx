@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className="navbar-center">
         {auth?.role === 'admin' && <Link to="/dashboard">Dashboard</Link>}
         <Link to="/about">About</Link>
-        <Link to="/analysis">Analytics</Link>
+        <Link to="/analysis">Analyze</Link>
         <Link to="/history">History</Link>
       </div>
 

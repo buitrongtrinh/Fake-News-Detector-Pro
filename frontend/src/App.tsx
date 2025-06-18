@@ -22,7 +22,7 @@ const App: React.FC = () => {
         <Navbar />
         <main className="app-main">
           <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/" element={<Navigate to="/about" replace />} />
 
             <Route
               path="/login"
@@ -54,9 +54,7 @@ const App: React.FC = () => {
             <Route
               path="/about"
               element={
-                <ProtectedRoute requiredRole={['user', 'admin']}>
-                  <AboutPage />
-                </ProtectedRoute>
+                <AboutPage />
               }
             />
 
@@ -86,6 +84,7 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<Navigate to="/about" />} />
           </Routes>
         </main>
       </div>

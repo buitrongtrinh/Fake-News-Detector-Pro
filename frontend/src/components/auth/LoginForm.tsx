@@ -40,7 +40,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   return (
     <div className="login-form-container">
-      <div className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <h2>Đăng nhập</h2>
         {error && <div className="error-message">{error}</div>}
 
@@ -76,15 +76,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </div>
         </div>
 
-        <button 
-          type="button" 
-          className="form-button" 
-          onClick={handleSubmit} 
+        <button
+          type="submit"
+          className="form-button"
           disabled={loading}
         >
           {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </button>
-      </div>
+      </form>
     </div>
   );
 };

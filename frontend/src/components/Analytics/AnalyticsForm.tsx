@@ -34,6 +34,22 @@ const AnalyticsForm: React.FC<AnalyticsFormProps> = ({ onAnalytic }) => {
     if (error) setError(null);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Nếu nhấn Enter mà không nhấn Shift thì submit
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Ngăn không cho xuống dòng
+      if (!data.trim() || loading) return;
+      
+      // Trigger submit
+      const form = e.currentTarget.form;
+      if (form) {
+        const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+        form.dispatchEvent(submitEvent);
+      }
+    }
+    // Nếu nhấn Shift+Enter thì để mặc định (xuống dòng)
+  };
+
   const handleAutoResize = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const target = e.currentTarget;
     target.style.height = "auto";
@@ -63,9 +79,10 @@ const AnalyticsForm: React.FC<AnalyticsFormProps> = ({ onAnalytic }) => {
             id="data"
             value={data}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             onInput={handleAutoResize}
             onWheel={handleWheel}
-            placeholder="Nhập dữ liệu cần phân tích..."
+            placeholder="Nhập dữ liệu cần phân tích... (Enter để gửi, Shift+Enter để xuống dòng)"
             className={error ? "error" : ""}
             disabled={loading}
             rows={1}

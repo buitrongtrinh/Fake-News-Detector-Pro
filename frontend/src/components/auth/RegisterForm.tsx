@@ -74,7 +74,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
 
   return (
     <div className="register-form-container">
-      <div className="register-form">
+      <form className="register-form" onSubmit={handleSubmit}>
         <h2>Đăng ký</h2>
         {error && <div className="error-message">{error}</div>}
 
@@ -143,14 +143,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         </div>
 
         <button 
-          type="button" 
+          type="submit" 
           className="form-button" 
-          onClick={handleSubmit} 
           disabled={loading}
         >
           {loading ? 'Đang đăng ký...' : 'Đăng ký'}
         </button>
-      </div>
+      </form>
     </div>
   );
 };

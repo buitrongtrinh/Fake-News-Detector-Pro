@@ -1,12 +1,10 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { getToday } from "../utils/getToday";
-
 import { GoogleGenAI } from "@google/genai";
 import { FactCheckResult } from "../types/interfaces";
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
+const date = new Date().toLocaleDateString('vi-VN');
 
 export async function callGeminiAPI(message: string): Promise<FactCheckResult> {
   try {
@@ -14,7 +12,11 @@ export async function callGeminiAPI(message: string): Promise<FactCheckResult> {
       model: "gemini-2.5-flash-preview-05-20",
       contents: [
         `
-Xác minh thông tin hoặc đoạn url sau: "${message}"
+Bạn là một chuyên gia xác minh thông tin. Kiểm tra tính chính xác của thông tin được cung cấp.
+
+Ngày hiện tại: ${date} (múi giờ Việt Nam)
+
+Xác minh **đoạn thông tin** hoặc **đoạn url** sau: "${message}"
 
 JSON output:
 {
@@ -24,8 +26,8 @@ JSON output:
   "sources": [
     {
       "title": "Tiêu đề bài báo",
-      "url": "https://...",
-      "domain": "không được trả về vertexaisearch.cloud.google.com",
+      "url": "url bạn dùng search thông tin",
+      "domain": "như Vnexpress.net không được trả về vertexaisearch.cloud.google.com",
       "date_published": "ngày đăng bài",
       "status": "supports/refutes"
     }
@@ -38,7 +40,8 @@ Quy tắc:
 - "false" = tin thật/chính xác  
 - "null" = chưa đủ thông tin
 - Ưu tiên kiến thức có sẵn
-- Khi search: ưu tiên báo tiếng Việt lớn, uy tín, gần với ngày hôm nay nhất(${getToday()})
+- Những câu hỏi liên quan thời gian, hãy lấy thời gian ở Việt Nam ($${date})
+- Khi search: search bài báo lớn, uy tín, gần với ngày hôm nay nhất
 - Nếu search → bao gồm nguồn trong "sources"
 - Chỉ search khi thực sự cần (tin mới/phức tạp)
 - Advice: đưa ra khuyên nghị cho người muốn xác minh
