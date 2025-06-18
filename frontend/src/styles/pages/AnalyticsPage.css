@@ -353,3 +353,23 @@
     word-break: break-all;
   }
 }
+/* Reliable (isfakenews = "false") - Green */
+.analytics-result-false {
+  border-left: 6px solid #10b981 !important;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Fake News (isfakenews = "true") - Red */
+.analytics-result-true {
+  border-left: 6px solid #ef4444 !important;
+  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%) !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15) !important;
+}
+
+/* Unknown (isfakenews = null) - Gray */
+.analytics-result-null {
+  border-left: 6px solid #6b7280 !important;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%) !important;
+  box-shadow: 0 4px 16px rgba(107, 114, 128, 0.15) !important;
+}
