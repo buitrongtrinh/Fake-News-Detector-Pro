@@ -1,33 +1,98 @@
 .profile-popup {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.75rem);
   right: 0;
-  margin-top: 0.5rem;
-  background-color: #ffffff; /* nền trắng */
-  color: #1f2937;             /* chữ xám đậm, dễ đọc */
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #1f2937;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 999;
-  width: 220px;
+  width: 280px;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  backdrop-filter: blur(10px);
+  animation: popupSlideIn 0.3s ease-out;
 }
 
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===================================
+   POPUP CONTENT
+   =================================== */
 .profile-popup .popup-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
+.profile-popup .popup-content p {
+  margin: 0;
+  padding: 0.75rem;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.profile-popup .popup-content p:hover {
+  background-color: #e2e8f0;
+  transform: translateX(2px);
+}
+
+.profile-popup .popup-content strong {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* ===================================
+   CLOSE BUTTON
+   =================================== */
 .profile-popup .close-btn {
-  background-color: #ef4444;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   border: none;
   color: white;
-  padding: 0.5rem;
-  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
 .profile-popup .close-btn:hover {
-  background-color: #dc2626;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.profile-popup .close-btn:active {
+  transform: translateY(0);
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 768px) {
+  .profile-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 320px;
+  }
 }

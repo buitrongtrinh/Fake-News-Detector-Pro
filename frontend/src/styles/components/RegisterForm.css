@@ -1,97 +1,113 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* === CONTAINER === */
 .register-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f3f4f6;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   padding: 1rem;
 }
 
-/* === FORM === */
+/* ===================================
+   REGISTER FORM
+   =================================== */
 .register-form {
-  max-width: 400px;
+  max-width: 450px;
   width: 100%;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .register-form h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* === FORM GROUPS === */
+/* ===================================
+   FORM GROUPS
+   =================================== */
 .form-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: #374151;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* === INPUTS === */
+/* ===================================
+   FORM INPUTS
+   =================================== */
 .form-input {
   width: 100%;
-  padding: 0.75rem;
+  padding: 1rem 1.25rem;
   font-size: 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
   color: #1f2937;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  background-color: #f9fafb;
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 100%);
+  box-shadow: 
+    0 0 0 4px rgba(139, 92, 246, 0.1),
+    0 4px 12px rgba(139, 92, 246, 0.15);
+  transform: translateY(-1px);
 }
 
 .form-input::placeholder {
   color: #9ca3af;
+  font-style: italic;
 }
 
-.form-input.valid {
-  border-color: #10b981;
-  background-color: #f0fdf4;
-}
-
-.form-input.invalid {
-  border-color: #ef4444;
-  background-color: #fef2f2;
-}
-
-/* === ERROR MESSAGE === */
+/* ===================================
+   ERROR HANDLING
+   =================================== */
 .error-message {
   color: #ef4444;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background-color: #fef2f2;
-  border-radius: 6px;
-  border: 1px solid #fecaca;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-radius: 10px;
+  border: 2px solid #fecaca;
+  font-weight: 500;
+  animation: shake 0.5s ease-in-out;
 }
 
-/* === PASSWORD INPUT CONTAINER === */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ===================================
+   PASSWORD INPUT SPECIAL STYLING
+   =================================== */
 .password-input-container {
   position: relative;
   display: flex;
@@ -99,94 +115,82 @@
 }
 
 .password-input {
-  padding-right: 3rem !important;
+  padding-right: 3.5rem !important;
 }
 
 .password-toggle-button {
   position: absolute;
-  right: 0.75rem;
+  right: 1rem;
   background: none;
   border: none;
   cursor: pointer;
   color: #6b7280;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   padding: 0.5rem;
-  border-radius: 4px;
-  transition: color 0.2s, background-color 0.2s;
+  border-radius: 8px;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 2rem;
-  min-height: 2rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
 }
 
 .password-toggle-button:hover {
   color: #374151;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(139, 92, 246, 0.1);
+  transform: scale(1.1);
 }
 
 .password-toggle-button:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #8b5cf6;
   outline-offset: 2px;
 }
 
-/* === SUBMIT BUTTON === */
+/* ===================================
+   SUBMIT BUTTON
+   =================================== */
 .form-button {
   width: 100%;
-  padding: 0.875rem;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #ffffff;
-  background-color: #3b82f6;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-  margin-top: 1rem;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  box-shadow: 
+    0 4px 12px rgba(139, 92, 246, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .form-button:hover {
-  background-color: #2563eb;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(139, 92, 246, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.form-button:active {
+  transform: translateY(0);
 }
 
 .form-button:disabled {
-  background-color: #93c5fd;
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 480px) {
-  .register-form-container {
-    padding: 0.5rem;
-  }
-
-  .register-form {
-    padding: 1.5rem;
-  }
-  
-  .register-form h2 {
-    font-size: 1.5rem;
-  }
-  
-  .form-input,
-  .form-button {
-    padding: 0.65rem;
-    font-size: 0.95rem;
-  }
-
-  .password-input {
-    padding-right: 2.5rem !important;
-  }
-  
-  .password-toggle-button {
-    right: 0.5rem;
-    font-size: 1rem;
-    min-width: 1.75rem;
-    min-height: 1.75rem;
-  }
-}
+/* ===================================
+   BROWSER COMPATIBILITY
+   =================================== */
 .register-form input[type="password"]::-ms-reveal {
   display: none;
 }
@@ -199,4 +203,39 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 480px) {
+  .register-form-container {
+    padding: 0.5rem;
+  }
+
+  .register-form {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .register-form h2 {
+    font-size: 1.75rem;
+  }
+  
+  .form-input,
+  .form-button {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .password-input {
+    padding-right: 3rem !important;
+  }
+  
+  .password-toggle-button {
+    right: 0.75rem;
+    font-size: 1.1rem;
+    min-width: 2rem;
+    min-height: 2rem;
+  }
 }

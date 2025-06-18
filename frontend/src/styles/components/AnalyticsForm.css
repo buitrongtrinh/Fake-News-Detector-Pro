@@ -1,107 +1,189 @@
 .analytics-form-container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 2rem auto;
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.2s ease;
-  will-change: box-shadow;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.analytics-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
 }
 
 .analytics-form-container:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    0 12px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
+/* ===================================
+   FORM TITLE
+   =================================== */
 .analytics-form h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* ===================================
+   FORM GROUPS
+   =================================== */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
 }
 
 .form-group label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
   color: #374151;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+/* ===================================
+   TEXTAREA STYLING
+   =================================== */
 textarea {
-  font-family: 'Segoe UI', sans-serif;
-  padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 1.25rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
   font-size: 1rem;
-  line-height: 1.5;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  min-height: 48px;
-  background-color: #f9fafb;
-  max-height: 200px;
-  overflow-y: hidden;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+  min-height: 120px;
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  max-height: 300px;
+  overflow-y: auto;
+  resize: vertical;
 }
 
 textarea:focus {
   outline: none;
   border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-  background-color: #ffffff;
-}
-
-textarea.error {
-  border-color: #f87171;
-  background-color: #fef2f2;
-}
-
-.error-message {
-  margin-top: 0.5rem;
-  color: #b91c1c;
-  font-size: 0.875rem;
-}
-
-button[type="submit"] {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-button[type="submit"]:hover {
-  background-color: #2563eb;
+  background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.1),
+    0 4px 12px rgba(59, 130, 246, 0.15);
   transform: translateY(-1px);
 }
 
-button[type="submit"]:disabled {
-  background-color: #9ca3af;
-  cursor: not-allowed;
+textarea::placeholder {
+  color: #9ca3af;
+  font-style: italic;
 }
 
+textarea.error {
+  border-color: #ef4444;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  box-shadow: 
+    0 0 0 4px rgba(239, 68, 68, 0.1),
+    0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+/* ===================================
+   ERROR MESSAGES
+   =================================== */
+.error-message {
+  margin-top: 0.75rem;
+  color: #dc2626;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ===================================
+   SUBMIT BUTTON
+   =================================== */
+button[type="submit"] {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  align-self: center;
+  min-width: 200px;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(59, 130, 246, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+button[type="submit"]:disabled {
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===================================
+   LOADING STATE
+   =================================== */
 button.loading {
   position: relative;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 .loading-spinner {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border: 3px solid #ffffff;
   border-top: 3px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 0.75rem;
   vertical-align: middle;
 }
 
@@ -111,22 +193,52 @@ button.loading {
   }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 768px) {
   .analytics-form-container {
     margin: 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
+    border-radius: 16px;
   }
 
   .analytics-form h2 {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
   }
 
   textarea {
     font-size: 0.95rem;
+    padding: 1rem 1.25rem;
   }
 
   button[type="submit"] {
     width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .analytics-form-container {
+    margin: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .analytics-form h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group label {
+    font-size: 1rem;
+  }
+
+  textarea {
+    min-height: 100px;
+    padding: 0.875rem 1rem;
+  }
+
+  button[type="submit"] {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
   }
 }
