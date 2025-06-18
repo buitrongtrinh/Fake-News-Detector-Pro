@@ -5,7 +5,7 @@ import "../styles/pages/DashboardPage.css";
 interface HistoryEntry {
   id: string;
   input: string;
-  isfakenews: string;
+  isfakenews: string | null;
   reasoning: string[];
   sources: any[];
   advice: string;
@@ -84,6 +84,29 @@ export default function DashboardPage() {
     }
   };
 
+  // Function to get status info based on isfakenews value
+  const getStatusInfo = (isfakenews: string | null) => {
+    if (isfakenews === "false") {
+      return {
+        text: "Đáng tin cậy",
+        className: "status-reliable",
+        icon: "✅"
+      };
+    } else if (isfakenews === "true") {
+      return {
+        text: "Thông tin sai lệch", 
+        className: "status-fake",
+        icon: "❌"
+      };
+    } else {
+      return {
+        text: "Chưa xác định",
+        className: "status-unknown", 
+        icon: "❓"
+      };
+    }
+  };
+
   const filteredData = data.filter((u) => u.role === selectedTab);
 
   if (loading) return <p>Đang tải dữ liệu...</p>;
@@ -151,34 +174,30 @@ export default function DashboardPage() {
                   <p className="text-sm italic mt-2">Không có dữ liệu</p>
                 ) : (
                   <ul className="mt-2 space-y-2">
-                    {user.history.map((entry) => (
-                      <li key={entry.id} className="history-entry">
-                        <p className="font-medium">🔍 {entry.input}</p>
-                        <p className="text-sm">
-                          Kết luận:{" "}
-                          <span
-                            className={
-                              entry.isfakenews === "true"
-                                ? "text-red-600"
-                                : "text-green-600"
-                            }
-                          >
-                            {entry.isfakenews === "true"
-                              ? "Thông tin sai lệch"
-                              : "Đáng tin cậy"}
-                          </span>
-                        </p>
+                    {user.history.map((entry) => {
+                      const statusInfo = getStatusInfo(entry.isfakenews);
+                      
+                      return (
+                        <li key={entry.id} className={`history-entry ${statusInfo.className}`}>
+                          <p className="font-medium">🔍 {entry.input}</p>
+                          <p className="text-sm">
+                            Kết luận:{" "}
+                            <span className="status-text">
+                              {statusInfo.icon} {statusInfo.text}
+                            </span>
+                          </p>
 
-                        <div className="reasoning-list mt-1">
-                          <p className="font-medium">Lý do:</p>
-                          <ul className="list-disc list-inside">
-                            {entry.reasoning.map((reason, index) => (
-                              <li key={index}>{reason}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </li>
-                    ))}
+                          <div className="reasoning-list mt-1">
+                            <p className="font-medium">Lý do:</p>
+                            <ul className="list-disc list-inside">
+                              {entry.reasoning.map((reason, index) => (
+                                <li key={index}>{reason}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </details>
