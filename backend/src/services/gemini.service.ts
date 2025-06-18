@@ -14,7 +14,7 @@ export async function callGeminiAPI(message: string): Promise<FactCheckResult> {
       model: "gemini-2.5-flash-preview-05-20",
       contents: [
         `
-Xác minh thông tin: "${message}"
+Xác minh thông tin hoặc đoạn url sau: "${message}"
 
 JSON output:
 {
