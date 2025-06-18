@@ -3,23 +3,24 @@ import AnalyticsForm from "../components/Analytics/AnalyticsForm";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/pages/AnalyticsPage.css";
+import { db } from "../services/firebase/firebaseConfig";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 interface Source {
   title: string,
   url: string;
   domain: string;
   date_published: string;
-  status: "supports" | "refutes";
+  status: string;
 }
 
 interface FactCheckResult {
   input: string;
-  isfakenews: "true" | "false" | "null" | "";
+  isfakenews: string;
   reasoning: string[];
   sources: Source[];
-  advice: String;
+  advice: string;
 }
-
 const AnalyticsPage = () => {
   const [result, setResult] = useState<FactCheckResult | { error: string } | null>(null);
   const [duration, setDuration] = useState<number>(0);
@@ -47,9 +48,29 @@ const AnalyticsPage = () => {
       const duration = Math.round((endTime - startTime) / 10) / 100;
       setDuration(duration);
       const data = await res.json();
-
       if (res.ok) {
         setResult(data);
+
+        // 👉 Thêm console log để kiểm tra dữ liệu trước khi lưu Firestore
+        const historyData = {
+          userId: auth.user.uid,
+          userEmail: auth.user.email,
+          input: data.input,
+          isfakenews: data.isfakenews,
+          reasoning: data.reasoning,
+          sources: data.sources,
+          advice: data.advice,
+          createdAt: Timestamp.now(),
+        };
+
+        console.log("Dữ liệu chuẩn bị lưu vào Firestore:", historyData);
+
+        try {
+          await addDoc(collection(db, "history"), historyData);
+          console.log("✅ Đã lưu thành công vào Firestore");
+        } catch (err) {
+          console.error("❌ Lỗi khi lưu Firestore:", err);
+        }
       } else {
         setResult({ error: data.error || "Lỗi khi phân tích" });
       }
@@ -64,11 +85,10 @@ const AnalyticsPage = () => {
 
       {result && !("error" in result) && (
         <section
-          className={`analytics-result-box ${
-            result.isfakenews === "false" 
-            ? "analytics-result-false" 
+          className={`analytics-result-box ${result.isfakenews === "false"
+            ? "analytics-result-false"
             : result.isfakenews === "true" ? "analytics-result-true"
-            : "analytics-result-null"
+              : "analytics-result-null"
             }`}
         >
           <p>Thời gian phân tích: {duration} giây</p>
@@ -102,9 +122,12 @@ const AnalyticsPage = () => {
             </p>
           </div>
           <div className="analytics-section">
-            <p>
-              <span className="analytics-label">Lý do:</span> {result.reasoning}
-            </p>
+            <p className="analytics-label">Lý do:</p>
+            <ul>
+              {result.reasoning.map((reason: string, index: number) => (
+                <li key={index}>{reason}</li>
+              ))}
+            </ul>
           </div>
 
           <div className="analytics-section">

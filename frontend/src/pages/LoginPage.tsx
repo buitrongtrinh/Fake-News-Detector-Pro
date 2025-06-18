@@ -13,6 +13,7 @@ const LoginPage = () => {
     
     // 2. Lấy ID token
     const idToken = await user?.getIdToken(); // Lấy ID token từ User nếu có
+    console.log(idToken);
     // 3. Gửi token cho backend
     const res = await fetch('http://localhost:5000/login', {
       method: 'POST',

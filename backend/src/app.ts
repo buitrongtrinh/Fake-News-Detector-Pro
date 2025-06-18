@@ -3,7 +3,7 @@ import authRouter from './routes/auth.routes';  // router dùng controller login
 import cors from 'cors';
 import 'dotenv/config';
 import geminiRouter from './routes/gemini.routes';
-
+import dashboardRouter from './routes/dashboard.routes'
 const app = express();
 
 app.use(cors());
@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use('/', authRouter);
 app.use('/', geminiRouter);
+app.use('/', dashboardRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error('Lỗi server:', err);

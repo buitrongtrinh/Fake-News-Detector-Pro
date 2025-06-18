@@ -1,4 +1,4 @@
-import { firebaseAdmin } from "./services/firebase.services";
+import { firebaseAdmin } from "./services/firebase.service";
 
 async function setAdminRole(uid: string) {
   try {

@@ -20,7 +20,7 @@ JSON output:
 {
   "input": "Nội dung kiểm tra",
   "isfakenews": "true/false/null",
-  "reasoning": "Lý do ngắn gọn, Không chèn số tham chiếu như [1], [2, 3] vào.",
+  "reasoning": ["Lý do ngắn gọn, Không chèn số tham chiếu như [1], [2, 3] vào.", "lý do 2"],
   "sources": [
     {
       "title": "Tiêu đề bài báo",

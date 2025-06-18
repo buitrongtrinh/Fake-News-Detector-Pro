@@ -3,13 +3,13 @@ interface Source {
   url: string;
   domain: string;
   date_published: string;
-  status: "supports" | "refutes";
+  status: string;
 }
 
 export interface FactCheckResult {
   input: string;
-  isfakenews: "true" | "false" | "null" | "";
+  isfakenews: string;
   reasoning: string[];
   sources: Source[];
-  advice: String;
+  advice: string;
 }

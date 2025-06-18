@@ -1,0 +1,162 @@
+/* Dashboard container */
+.p-4 {
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Title */
+.p-4 h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+  text-align: center;
+}
+
+/* Tabs */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tab-buttons button {
+  background-color: #e5e7eb;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.tab-buttons button:hover {
+  background-color: #d1d5db;
+}
+
+.tab-buttons button.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* User Card */
+.user-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem 1.5rem;
+  transition: box-shadow 0.2s ease;
+  will-change: box-shadow;
+}
+
+.user-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Highlight current user */
+.highlight-current-user {
+  border: 2px solid #3b82f6;
+}
+
+/* User info header */
+.user-card h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-card h2 span {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.user-card button {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: text-decoration 0.2s;
+}
+
+.user-card button:hover {
+  text-decoration: underline;
+}
+
+/* Subtext */
+.user-card p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Details */
+details summary {
+  cursor: pointer;
+  color: #2563eb;
+  font-weight: 500;
+  margin-top: 0.75rem;
+}
+
+details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+/* History entry */
+.history-entry {
+  background-color: #f9fafb;
+  border-left: 4px solid #3b82f6;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* Reasoning list */
+.reasoning-list {
+  margin-top: 0.5rem;
+}
+
+.reasoning-list p {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.reasoning-list ul {
+  padding-left: 1.25rem;
+}
+
+.reasoning-list li {
+  margin-bottom: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .p-4 {
+    padding: 1rem;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-card {
+    padding: 1rem;
+  }
+
+  .user-card h2 {
+    font-size: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tab-buttons button {
+    width: 100%;
+    text-align: center;
+  }
+}
